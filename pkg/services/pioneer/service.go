@@ -1,16 +1,16 @@
 package pioneer
 
 import(
-	"github.com/grippenet/badge-service/pkg/db"
+	"github.com/grippenet/badge-service/pkg/types"
 	"fmt"
 	"log/slog"
 )
 
 type PioneerService struct {
-	dbService *db.BadgeDBService
+	dbService types.DBService
 }
 
-func NewPioneerService(dbService *db.BadgeDBService) *PioneerService {
+func NewPioneerService(dbService types.DBService) *PioneerService {
 	return &PioneerService{
 		dbService: dbService,
 	}

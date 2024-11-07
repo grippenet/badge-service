@@ -8,8 +8,16 @@ import(
 	"github.com/grippenet/badge-service/pkg/types"
 )
 
+const MemoryDbURI = ":memory"
+
 func LoadConfig() (types.AppConfig, error) {
-	dbConfig := configs.GetMongoDBConfig("BADGE_")
+	skipDb := os.Getenv("BADGE_DB_SKIP")
+	var dbConfig configs.DBConfig
+	if(skipDb != "") {
+		dbConfig = configs.GetMongoDBConfig("BADGE_")
+	} else {
+		dbConfig = configs.DBConfig{URI: MemoryDbURI}
+	}
 	initIndexes, err := parseIndexes(os.Getenv("BADGE_DB_INITIAL_INDEXES"))
 	return types.AppConfig{
 		DBConfig: types.DBConfig{
